@@ -1,4 +1,3 @@
-Attribute VB_Name = "ColumnResizer"
 Option Explicit
 
 Sub ResizeColumnsInSelection()
@@ -55,20 +54,23 @@ End Sub
 Sub ResizeColumn(col As Range)
 
     Dim c As Range
-    Dim f As Integer
-    Dim l As Integer
-    Dim ratio As Double
+    Dim cellValueLength As Integer
+    Dim fontSize As Integer
     Dim newSize As Integer
     Dim filterButtonSize As Integer
-    Dim baseSize As Integer
+    Dim fontSizeToLengthRatio As Double
     
     Set c = col.Cells(1)
     
-    l = Len(c.Value2)
-    f = c.Font.Size
-    filterButtonSize = 3
-    newSize = l + filterButtonSize
+    cellValueLength = Len(c.Value2)
+    fontSize = c.Font.Size
+    filterButtonSize = 5
+    fontSizeToLengthRatio = 0.95
     
+    newSize = fontSizeToLengthRatio * cellValueLength + filterButtonSize
+    
+    If newSize > 50 Then newSize = 50
+    If newSize < 8 Then newSize = 8
     col.ColumnWidth = newSize
     
 End Sub
